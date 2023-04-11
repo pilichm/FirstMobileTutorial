@@ -6,6 +6,7 @@ public class RepeatBackground : MonoBehaviour
 {
     private Vector3 startPosition;
     private float repeatWidth;
+    private int refreshCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,12 @@ public class RepeatBackground : MonoBehaviour
         if (transform.position.x < 10.0f)
         {
             transform.position = startPosition;
+            refreshCount += 1;
         }
+    }
+
+    public int getRefreshCount()
+    {
+        return refreshCount;
     }
 }

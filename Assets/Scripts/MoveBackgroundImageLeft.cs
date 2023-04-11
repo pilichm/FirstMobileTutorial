@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveBackgroundImageLeft : MonoBehaviour
 {
-    private float speed = 15.0f;
+    private float speed = 20.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -16,5 +16,10 @@ public class MoveBackgroundImageLeft : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.left * speed * Time.deltaTime);
+    }
+
+    public void increaseSpeedByValue(float valueToAddToSpeed)
+    {
+        speed += valueToAddToSpeed;
     }
 }
