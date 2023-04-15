@@ -57,5 +57,10 @@ public class GameManager : MonoBehaviour
             moveBackgroundImageLeft.increaseSpeedByValue(valueToAddToBackgroundSpeed);
             stageName.text = stageNames[4];
         }
+
+        /**
+         * Move ship on touch or click on buttons. 
+         **/
+        
     }
 }

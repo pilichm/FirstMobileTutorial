@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private float speed = 10.0f;
-    private float bottomVerticalMovementBoundary = -4.5f;
+    private float bottomVerticalMovementBoundary = -3.5f;
     private float topVerticalMovementBoundary = 3.5f;
 
     // Start is called before the first frame update
@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("x: " + transform.position.x + " y: " + transform.position.y);
-
         /**
          * Move up when right arrow is pressed.
          **/
