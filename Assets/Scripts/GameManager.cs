@@ -10,10 +10,17 @@ public class GameManager : MonoBehaviour
     private GameObject background;
     private RepeatBackground repeatBackground;
     private MoveBackgroundImageLeft moveBackgroundImageLeft;
+    private PlayerController playerController;
     private SpriteRenderer backgroundRenderer;
+
     private float valueToAddToBackgroundSpeed = 2.0f;
+    private float scoreChangeFadeOutSpeed = 3.0f;
 
     public TMP_Text stageName;
+    public TMP_Text currentScore;
+    public TMP_Text scoreChange;
+
+    private int playerScore = 0;
 
     private string[] stageNames = {
         "Stage 1: Daybreak", "Stage 2: Midday", "Stage 3: Evening", "Stage 4: Sunset", "Stage 5: Midnight"
@@ -25,7 +32,11 @@ public class GameManager : MonoBehaviour
         background = GameObject.Find("Background");
         repeatBackground = background.GetComponent<RepeatBackground>();
         moveBackgroundImageLeft = background.GetComponent<MoveBackgroundImageLeft>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         backgroundRenderer = background.GetComponent<SpriteRenderer>();
+
+        scoreChange.gameObject.SetActive(false);
+        RefreshPlayerScore();
     }
 
     // Update is called once per frame
@@ -59,8 +70,57 @@ public class GameManager : MonoBehaviour
         }
 
         /**
-         * Move ship on touch or click on buttons. 
+         * For testing up and down key arrows will add or substract value from player score. 
          **/
-        
+        if (Input.GetKeyDown("up"))
+        {
+            AddValueToPlayerScore(50);
+        }
+
+        if (Input.GetKeyDown("down"))
+        {
+            AddValueToPlayerScore(-50);
+        }
+    }
+
+    void RefreshPlayerScore()
+    {
+        currentScore.text = "SCORE: " + playerScore;
+    }
+
+    public void AddValueToPlayerScore(int valueToAdd)
+    {
+        playerScore += valueToAdd;
+        RefreshPlayerScore();
+        scoreChange.gameObject.SetActive(true);
+
+        if (valueToAdd > 0)
+        {
+            scoreChange.text = "+" + valueToAdd;
+            scoreChange.color = new Color(0, 255, 0, 255);
+        } else
+        {
+            scoreChange.text = "" + valueToAdd;
+            scoreChange.color = new Color(255, 0, 0, 255);
+        }
+
+        StartCoroutine(FadeOut());
+    }
+
+    /**
+     * Method for fading out text displaying change in player score. 
+     **/
+    private IEnumerator FadeOut()
+    {
+        scoreChange.color = new Color(scoreChange.color.r, scoreChange.color.g, scoreChange.color.b, 1);
+
+        while (scoreChange.color.a > 0.0f)
+        {
+            scoreChange.color = new Color(scoreChange.color.r, scoreChange.color.g, scoreChange.color.b, 
+                scoreChange.color.a - (Time.deltaTime * scoreChangeFadeOutSpeed));
+            yield return null;
+        }
+
+        scoreChange.gameObject.SetActive(false);
     }
 }
