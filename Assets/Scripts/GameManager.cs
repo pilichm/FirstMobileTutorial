@@ -97,11 +97,13 @@ public class GameManager : MonoBehaviour
         if (valueToAdd > 0)
         {
             scoreChange.text = "+" + valueToAdd;
-            scoreChange.color = new Color(0, 255, 0, 255);
+            scoreChange.color = Color.green;
+            currentScore.color = Color.green;
         } else
         {
             scoreChange.text = "" + valueToAdd;
-            scoreChange.color = new Color(255, 0, 0, 255);
+            scoreChange.color = Color.red;
+            currentScore.color = Color.red;
         }
 
         StartCoroutine(FadeOut());
@@ -122,5 +124,6 @@ public class GameManager : MonoBehaviour
         }
 
         scoreChange.gameObject.SetActive(false);
+        currentScore.color = Color.white;
     }
 }
