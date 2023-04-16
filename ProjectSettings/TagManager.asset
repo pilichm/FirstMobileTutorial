@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ButtonUp
   - ButtonDown
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -42,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1206503905
     locked: 0

@@ -8,9 +8,14 @@ public class PlayerController : MonoBehaviour
     private float bottomVerticalMovementBoundary = -3.5f;
     private float topVerticalMovementBoundary = 3.5f;
 
+    private GameManager gameManager;
+
+    private int valueToSubstractOnCollisionWithEnemy = -10;
+
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -46,6 +51,22 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector2(transform.position.x, bottomVerticalMovementBoundary);
         }
 
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        /**
+         * On collision with enemy substract value from player score and destroy enemy.
+         **/
+        if (other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Collision with enemy!");
+            Destroy(other.gameObject);
+            gameManager.AddValueToPlayerScore(valueToSubstractOnCollisionWithEnemy);
+        } else
+        {
+            Debug.Log("Other collsion.!");
+        }
     }
 
 }
