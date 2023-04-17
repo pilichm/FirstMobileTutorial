@@ -12,10 +12,13 @@ public class PlayerController : MonoBehaviour
 
     private int valueToSubstractOnCollisionWithEnemy = -10;
 
+    private Enemy enemy;
+
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
     }
 
     // Update is called once per frame
@@ -61,7 +64,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             Debug.Log("Collision with enemy!");
-            Destroy(other.gameObject);
+            enemy.ResetPosition();
             gameManager.AddValueToPlayerScore(valueToSubstractOnCollisionWithEnemy);
         } else
         {

@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     private MoveBackgroundImageLeft moveBackgroundImageLeft;
     private PlayerController playerController;
     private SpriteRenderer backgroundRenderer;
+    private Enemy enemy;
 
-    private float valueToAddToBackgroundSpeed = 2.0f;
+    private float valueToAddToBackgroundSpeed = 0.5f;
     private float scoreChangeFadeOutSpeed = 3.0f;
+    private float valueToAddToEnemySpeed = 0.2f;
 
     public TMP_Text stageName;
     public TMP_Text currentScore;
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
         moveBackgroundImageLeft = background.GetComponent<MoveBackgroundImageLeft>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         backgroundRenderer = background.GetComponent<SpriteRenderer>();
+        enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
 
         scoreChange.gameObject.SetActive(false);
         RefreshPlayerScore();
@@ -46,27 +49,19 @@ public class GameManager : MonoBehaviour
 
         if (refreshCount==2) {
             // Change to midday.
-            backgroundRenderer.sprite = backgroundSprites[0];
-            moveBackgroundImageLeft.increaseSpeedByValue(valueToAddToBackgroundSpeed);
-            stageName.text = stageNames[1];
+            ChangeBackgoundScene(0);
         } else if (refreshCount == 4)
         {
             // Change to evening.
-            backgroundRenderer.sprite = backgroundSprites[1];
-            moveBackgroundImageLeft.increaseSpeedByValue(valueToAddToBackgroundSpeed);
-            stageName.text = stageNames[2];
+            ChangeBackgoundScene(1);
         } else if (refreshCount == 6)
         {
             // Change to sunset.
-            backgroundRenderer.sprite = backgroundSprites[2];
-            moveBackgroundImageLeft.increaseSpeedByValue(valueToAddToBackgroundSpeed);
-            stageName.text = stageNames[3];
+            ChangeBackgoundScene(2);
         } else if (refreshCount == 8)
         {
             // Change to midnight.
-            backgroundRenderer.sprite = backgroundSprites[3];
-            moveBackgroundImageLeft.increaseSpeedByValue(valueToAddToBackgroundSpeed);
-            stageName.text = stageNames[4];
+            ChangeBackgoundScene(3);
         }
 
         /**
@@ -125,5 +120,13 @@ public class GameManager : MonoBehaviour
 
         scoreChange.gameObject.SetActive(false);
         currentScore.color = Color.white;
+    }
+
+    private void ChangeBackgoundScene(int backgroundIndex)
+    {
+        backgroundRenderer.sprite = backgroundSprites[backgroundIndex];
+        moveBackgroundImageLeft.increaseSpeedByValue(valueToAddToBackgroundSpeed);
+        stageName.text = stageNames[backgroundIndex + 1];
+        enemy.addValueToSpeed(valueToAddToEnemySpeed);
     }
 }
