@@ -24,6 +24,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (transform.position.x < -1.9f)
+        {
+            transform.Translate(Vector2.right * 0.5f * Time.deltaTime);
+        }
+
         /**
          * Move up when right arrow is pressed.
          **/

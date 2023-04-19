@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     private int playerScore = 0;
 
+    private bool isStarted;
+
     private string[] stageNames = {
         "Stage 1: Daybreak", "Stage 2: Midday", "Stage 3: Evening", "Stage 4: Sunset", "Stage 5: Midnight"
     };
@@ -40,6 +42,8 @@ public class GameManager : MonoBehaviour
 
         scoreChange.gameObject.SetActive(false);
         RefreshPlayerScore();
+
+        isStarted = false;
     }
 
     // Update is called once per frame
@@ -128,5 +132,10 @@ public class GameManager : MonoBehaviour
         moveBackgroundImageLeft.increaseSpeedByValue(valueToAddToBackgroundSpeed);
         stageName.text = stageNames[backgroundIndex + 1];
         enemy.addValueToSpeed(valueToAddToEnemySpeed);
+    }
+
+    public bool IsStarted()
+    {
+        return isStarted;
     }
 }
