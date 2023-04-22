@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,8 +12,15 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
 
     private int valueToSubstractOnCollisionWithEnemy = -10;
+    private int scoreBonusForBlueDiamond = 10;
+    private int scoreBonusForGreenDiamond = 20;
+    private int scoreBonusForRedDiamond = 30;
 
     private Enemy enemy;
+
+    private string[] diamondsTypes = {
+        "DiamondRed", "DiamondGreen", "DiamondBlue"
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -72,6 +80,23 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Collision with enemy!");
             enemy.ResetPosition();
             gameManager.AddValueToPlayerScore(valueToSubstractOnCollisionWithEnemy);
+        } else if (System.Array.IndexOf(diamondsTypes, other.gameObject.tag) >= 0) 
+        {
+            Debug.Log("Collision with diamond!");
+
+            if (other.gameObject.tag == diamondsTypes[0])
+            {
+                gameManager.AddValueToPlayerScore(scoreBonusForRedDiamond);
+            } else if (other.gameObject.tag == diamondsTypes[1])
+            {
+                gameManager.AddValueToPlayerScore(scoreBonusForGreenDiamond);
+            } else if (other.gameObject.tag == diamondsTypes[2])
+            {
+                gameManager.AddValueToPlayerScore(scoreBonusForBlueDiamond);
+            }
+            
+            Diamond diamondScript = other.gameObject.GetComponent<Diamond>();
+            diamondScript.ResetPosition();
         } else
         {
             Debug.Log("Other collsion.!");

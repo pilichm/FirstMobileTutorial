@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Diamond : MonoBehaviour
 {
     private float speed = 1.0f;
     private float xMoveBoundary = -4.0f;
@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     private Vector3 startPosition;
 
     private bool isMoving;
-    private int maxMovementDelay = 10;
+    private int maxMovementDelay = 15;
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +26,9 @@ public class Enemy : MonoBehaviour
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
-        
+
         /**
-         * Move enemy to start position enemy when it has left the screen.
+         * Move diamond to start position enemy when it has left the screen.
          **/
         if (transform.position.x < xMoveBoundary)
         {
@@ -53,5 +53,10 @@ public class Enemy : MonoBehaviour
         int movementDelay = Random.Range(0, maxMovementDelay);
         yield return new WaitForSeconds(movementDelay);
         isMoving = true;
+    }
+
+    public void SubstractValueFromDelay(int valueToSubstract)
+    {
+        maxMovementDelay -= valueToSubstract;
     }
 }

@@ -14,15 +14,20 @@ public class GameManager : MonoBehaviour
     private SpriteRenderer backgroundRenderer;
     private Enemy enemy;
 
+    private Diamond diamondRed;
+    private Diamond diamondGreen;
+    private Diamond diamondBlue;
+
     private float valueToAddToBackgroundSpeed = 0.5f;
     private float scoreChangeFadeOutSpeed = 3.0f;
-    private float valueToAddToEnemySpeed = 0.2f;
+    private float valueToAddToEnemyAndDiamondSpeed = 0.2f;
 
     public TMP_Text stageName;
     public TMP_Text currentScore;
     public TMP_Text scoreChange;
 
     private int playerScore = 0;
+    private int valueToSubstractFromDiamondSpawnDelay = 1;
 
     private bool isStarted;
 
@@ -39,6 +44,10 @@ public class GameManager : MonoBehaviour
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         backgroundRenderer = background.GetComponent<SpriteRenderer>();
         enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
+
+        diamondRed = GameObject.Find("DiamondRed").GetComponent<Diamond>();
+        diamondGreen = GameObject.Find("DiamondGreen").GetComponent<Diamond>();
+        diamondBlue = GameObject.Find("DiamondBlue").GetComponent<Diamond>();
 
         scoreChange.gameObject.SetActive(false);
         RefreshPlayerScore();
@@ -131,7 +140,15 @@ public class GameManager : MonoBehaviour
         backgroundRenderer.sprite = backgroundSprites[backgroundIndex];
         moveBackgroundImageLeft.increaseSpeedByValue(valueToAddToBackgroundSpeed);
         stageName.text = stageNames[backgroundIndex + 1];
-        enemy.addValueToSpeed(valueToAddToEnemySpeed);
+        enemy.addValueToSpeed(valueToAddToEnemyAndDiamondSpeed);
+
+        diamondRed.addValueToSpeed(valueToAddToEnemyAndDiamondSpeed);
+        diamondGreen.addValueToSpeed(valueToAddToEnemyAndDiamondSpeed);
+        diamondBlue.addValueToSpeed(valueToAddToEnemyAndDiamondSpeed);
+
+        diamondRed.SubstractValueFromDelay(valueToSubstractFromDiamondSpawnDelay);
+        diamondGreen.SubstractValueFromDelay(valueToSubstractFromDiamondSpawnDelay);
+        diamondBlue.SubstractValueFromDelay(valueToSubstractFromDiamondSpawnDelay);
     }
 
     public bool IsStarted()

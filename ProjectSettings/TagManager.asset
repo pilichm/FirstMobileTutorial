@@ -7,6 +7,9 @@ TagManager:
   - ButtonUp
   - ButtonDown
   - Enemy
+  - DiamondRed
+  - DiamondGreen
+  - DiamondBlue
   layers:
   - Default
   - TransparentFX
