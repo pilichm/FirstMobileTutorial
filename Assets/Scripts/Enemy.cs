@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     private float speed = 1.0f;
     private float xMoveBoundary = -4.0f;
+    private float bottomVerticalMovementBoundary = -3.5f;
+    private float topVerticalMovementBoundary = 3.5f;
 
     private Vector3 startPosition;
 
@@ -38,7 +40,7 @@ public class Enemy : MonoBehaviour
 
     public void ResetPosition()
     {
-        transform.position = startPosition;
+        transform.position = new Vector2(startPosition.x, Random.Range(bottomVerticalMovementBoundary, topVerticalMovementBoundary));
         isMoving = false;
         StartCoroutine(WaitBeforeRestartMovement());
     }
