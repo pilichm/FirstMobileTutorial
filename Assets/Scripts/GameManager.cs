@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text stageName;
     public TMP_Text currentScore;
     public TMP_Text scoreChange;
+    public TMP_Text textStartGame;
 
     private int playerScore = 0;
     private int valueToSubstractFromDiamondSpawnDelay = 1;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         DisplayGameUI(false);
+        DisplayMainMenu(true);
 
         background = GameObject.Find("Background");
 
@@ -102,6 +104,7 @@ public class GameManager : MonoBehaviour
         {
             isStarted = true;
             DisplayGameUI(true);
+            DisplayMainMenu(false);
         }
     }
 
@@ -193,5 +196,17 @@ public class GameManager : MonoBehaviour
 
         buttonArrowUp.SetActive(isActive);
         buttonArrowDown.SetActive(isActive);
+    }
+
+    private void DisplayMainMenu(bool isActive)
+    {
+        textStartGame.gameObject.SetActive(isActive);
+    }
+
+    public void StartButtonClicked()
+    {
+        isStarted = true;
+        DisplayGameUI(true);
+        DisplayMainMenu(false);
     }
 }
