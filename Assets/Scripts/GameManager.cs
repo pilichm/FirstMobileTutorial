@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
     private Diamond diamondGreen;
     private Diamond diamondBlue;
 
-    private float valueToAddToBackgroundSpeed = 0.5f;
+    private float valueToAddToBackgroundSpeed = 0.05f;
     private float scoreChangeFadeOutSpeed = 3.0f;
-    private float valueToAddToEnemyAndDiamondSpeed = 0.2f;
+    private float valueToAddToEnemyAndDiamondSpeed = 0.05f;
 
     public TMP_Text stageName;
     public TMP_Text currentScore;
@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     private int valueToSubstractFromDiamondSpawnDelay = 1;
 
     private bool isStarted;
+    private bool isPlayerInPosition;
 
     private string[] stageNames = {
         "Stage 1: Daybreak", "Stage 2: Midday", "Stage 3: Evening", "Stage 4: Sunset", "Stage 5: Midnight"
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
         RefreshPlayerScore();
 
         isStarted = false;
+        isPlayerInPosition = false;
     }
 
     // Update is called once per frame
@@ -88,6 +90,11 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown("down"))
         {
             AddValueToPlayerScore(-50);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isStarted = true;
         }
     }
 
@@ -154,5 +161,20 @@ public class GameManager : MonoBehaviour
     public bool IsStarted()
     {
         return isStarted;
+    }
+
+    public bool IsPlayerInPosition()
+    {
+        return isPlayerInPosition;
+    }
+
+    public void SetIsPlayerInPosition(bool valueToSet)
+    {
+        isPlayerInPosition = valueToSet;
+    }
+
+    public bool IsStartedAndPlayerInPosition()
+    {
+        return isStarted && isPlayerInPosition;
     }
 }

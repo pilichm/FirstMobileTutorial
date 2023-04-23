@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     private Enemy enemy;
 
+    private bool isPlayerInPositionValueSet;
+
     private string[] diamondsTypes = {
         "DiamondRed", "DiamondGreen", "DiamondBlue"
     };
@@ -27,45 +29,59 @@ public class PlayerController : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         enemy = GameObject.Find("Enemy").GetComponent<Enemy>();
+        isPlayerInPositionValueSet = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (transform.position.x < -1.9f)
+        if (gameManager.IsStarted())
         {
-            transform.Translate(Vector2.right * 0.5f * Time.deltaTime);
-        }
+            if (transform.position.x < -1.9f)
+            {
+                transform.Translate(Vector2.right * 0.5f * Time.deltaTime);
+            } else
+            {
+                if (!isPlayerInPositionValueSet)
+                {
+                    gameManager.SetIsPlayerInPosition(true);
+                }
+            }
 
-        /**
-         * Move up when right arrow is pressed.
-         **/
-        if (Input.GetKey("right")) {
-            Debug.Log("right.");
-            transform.Translate(Vector2.up * speed * Time.deltaTime);
-        }
+            if (gameManager.IsStartedAndPlayerInPosition())
+            {
+                /**
+                * Move up when right arrow is pressed.
+                **/
+                if (Input.GetKey("right"))
+                {
+                    Debug.Log("right.");
+                    transform.Translate(Vector2.up * speed * Time.deltaTime);
+                }
 
-        /**
-         * Move down when left arrow is pressed. 
-         **/
-        if (Input.GetKey("left"))
-        {
-            Debug.Log("left.");
-            transform.Translate(Vector2.down * speed * Time.deltaTime);
-        }
+                /**
+                 * Move down when left arrow is pressed. 
+                 **/
+                if (Input.GetKey("left"))
+                {
+                    Debug.Log("left.");
+                    transform.Translate(Vector2.down * speed * Time.deltaTime);
+                }
 
-        /**
-         * Restrict player left and right movement. 
-         **/
-        if (transform.position.y > topVerticalMovementBoundary)
-        {
-            transform.position = new Vector2(transform.position.x, topVerticalMovementBoundary);
-        }
+                /**
+                 * Restrict player left and right movement. 
+                 **/
+                if (transform.position.y > topVerticalMovementBoundary)
+                {
+                    transform.position = new Vector2(transform.position.x, topVerticalMovementBoundary);
+                }
 
-        if (transform.position.y < bottomVerticalMovementBoundary)
-        {
-            transform.position = new Vector2(transform.position.x, bottomVerticalMovementBoundary);
+                if (transform.position.y < bottomVerticalMovementBoundary)
+                {
+                    transform.position = new Vector2(transform.position.x, bottomVerticalMovementBoundary);
+                }
+            }
+
         }
 
     }

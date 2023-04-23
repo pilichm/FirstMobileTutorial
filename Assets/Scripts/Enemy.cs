@@ -14,9 +14,12 @@ public class Enemy : MonoBehaviour
     private bool isMoving;
     private int maxMovementDelay = 10;
 
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         startPosition = transform.position;
         isMoving = true;
     }
@@ -24,17 +27,20 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isMoving)
+        if (gameManager.IsStartedAndPlayerInPosition())
         {
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
-        }
-        
-        /**
-         * Move enemy to start position enemy when it has left the screen.
-         **/
-        if (transform.position.x < xMoveBoundary)
-        {
-            ResetPosition();
+            if (isMoving)
+            {
+                transform.Translate(Vector3.left * speed * Time.deltaTime);
+            }
+
+            /**
+             * Move enemy to start position enemy when it has left the screen.
+             **/
+            if (transform.position.x < xMoveBoundary)
+            {
+                ResetPosition();
+            }
         }
     }
 
