@@ -1164,6 +1164,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 90494e0797812be488f2fbe703461966, type: 3}
   - {fileID: 21300000, guid: 3a1c3cd9f2f146245be4af3a1123a528, type: 3}
   - {fileID: 21300000, guid: d349eb2db22ec0746a14ade881ac087f, type: 3}
+  buttonArrowUp: {fileID: 316784707}
+  buttonArrowDown: {fileID: 1001498449}
   stageName: {fileID: 740817944}
   currentScore: {fileID: 2015990292}
   scoreChange: {fileID: 924212998}

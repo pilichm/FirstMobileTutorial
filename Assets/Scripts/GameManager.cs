@@ -7,12 +7,15 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public Sprite [] backgroundSprites;
-    private GameObject background;
     private RepeatBackground repeatBackground;
     private MoveBackgroundImageLeft moveBackgroundImageLeft;
     private PlayerController playerController;
     private SpriteRenderer backgroundRenderer;
     private Enemy enemy;
+
+    private GameObject background;
+    public GameObject buttonArrowUp;
+    public GameObject buttonArrowDown;
 
     private Diamond diamondRed;
     private Diamond diamondGreen;
@@ -39,7 +42,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DisplayGameUI(false);
+
         background = GameObject.Find("Background");
+
         repeatBackground = background.GetComponent<RepeatBackground>();
         moveBackgroundImageLeft = background.GetComponent<MoveBackgroundImageLeft>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -95,6 +101,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isStarted = true;
+            DisplayGameUI(true);
         }
     }
 
@@ -176,5 +183,15 @@ public class GameManager : MonoBehaviour
     public bool IsStartedAndPlayerInPosition()
     {
         return isStarted && isPlayerInPosition;
+    }
+
+    private void DisplayGameUI(bool isActive)
+    {
+        stageName.gameObject.SetActive(isActive);
+        currentScore.gameObject.SetActive(isActive);
+        scoreChange.gameObject.SetActive(isActive);
+
+        buttonArrowUp.SetActive(isActive);
+        buttonArrowDown.SetActive(isActive);
     }
 }
